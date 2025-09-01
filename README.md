@@ -51,8 +51,8 @@ Want to be extra sneaky? You can resolve functions by hash too:
 // Just for example:
 uint32_t hash_MessageBoxA = CLoaderAdler32("MessageBoxA", 11); // = 0x...
 
+HMODULE hUser32 = LoadLibrary_PEB("user32.dll");
 // Then resolve it directly by hash (no strings!)
-HMODULE hUser32 = CLoaderDynGetModuleByAdler32(0x1441038f); // hash of "user32.dll"
 void* pMsgBox = CLoaderDynGetProcAddressByAdler32(hUser32, hash_MessageBoxA);
 ```
 
@@ -64,7 +64,7 @@ This way, your executable contains zero readable strings related to the APIs you
 
 **`CLoaderDynGetModuleByAdler32(uint32_t hash)`**
 
--   Finds a loaded module by its name hash
+-   Finds a **loaded** module by its name hash (`kernel32.dll` and `ntdll.dll` are always loaded by default)
 -   Returns module handle or NULL if not found
 
 **`CLoaderDynGetProcAddressByAdler32(HMODULE hModule, uint32_t hash)`**
